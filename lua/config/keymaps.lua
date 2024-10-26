@@ -210,14 +210,14 @@ end, { desc = 'Diff Windows in Tab' })
 -- Command & History {{{
 
 -- Switch history search pairs, matching my bash shell
-map('c', '<Up>', '<C-p>')
-map('c', '<Down>', '<C-n>')
-map('c', '<C-p>', function()
-	return vim.fn.pumvisible() == 1 and '<C-p>' or '<Up>'
-end, { expr = true })
-map('c', '<C-n>', function()
-	return vim.fn.pumvisible() == 1 and '<C-n>' or '<Down>'
-end, { expr = true })
+-- map('c', '<Up>', '<C-p>')
+-- map('c', '<Down>', '<C-n>')
+-- map('c', '<C-p>', function()
+-- 	return vim.fn.pumvisible() == 1 and '<C-p>' or '<Up>'
+-- end, { expr = true })
+-- map('c', '<C-n>', function()
+-- 	return vim.fn.pumvisible() == 1 and '<C-n>' or '<Down>'
+-- end, { expr = true })
 
 --- }}}
 -- File operations {{{

@@ -35,8 +35,43 @@ M = {
 			)
 			local cmp = require('cmp')
 			local defaults = require('cmp.config.default')()
-			local auto_select = false
+			local auto_select = true
 			local Util = require('util.init')
+
+			local cmp_next = function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				elseif require('luasnip').expand_or_jumpable() then
+					vim.fn.feedkeys(
+						vim.api.nvim_replace_termcodes(
+							'<Plug>luasnip-expand-or-jump',
+							true,
+							true,
+							true
+						),
+						''
+					)
+				else
+					fallback()
+				end
+			end
+			local cmp_prev = function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				elseif require('luasnip').jumpable(-1) then
+					vim.fn.feedkeys(
+						vim.api.nvim_replace_termcodes(
+							'<Plug>luasnip-jump-prev',
+							true,
+							true,
+							true
+						),
+						''
+					)
+				else
+					fallback()
+				end
+			end
 
 			return {
 				-- configure any filetype to auto add brackets
@@ -95,6 +130,8 @@ M = {
 							cmp.complete()
 						end
 					end),
+					["<C-n>"] = cmp_next,
+					["<C-p>"] = cmp_prev,
 				}),
 				formatting = {
 					format = function(entry, item)
@@ -381,11 +418,10 @@ M = {
 	{
 		'smoka7/hop.nvim',
 		version = '*',
-		event = "VeryLazy",
+		event = 'VeryLazy',
 		opts = {
 			keys = 'etovxqpdygfblzhckisuran',
 		},
-
 	},
 	{ import = 'plugins.extras.coding.luasnip' },
 	{ import = 'plugins.extras.coding.emmet' },
